@@ -8,8 +8,6 @@
 			document.addEventListener('input', () => {
 				const title = document.getElementById('title').value;
 				const tag = document.getElementById('tag').value;
-				const combined = `${title}_${tag}`;
-				document.getElementById('combined').value = combined;
 			});
 		});
 	</script>
@@ -30,7 +28,6 @@
 		<input type="date" name="date" id="date" required>
 		<label for="tag">Label</label>
 		<input type="text" name="tag" id="tag" maxlength="30" pattern="^[A-Za-z0-9_]{1,30}$" required>
-		<input type="hidden" name="combined" id="combined">
 		<input type="submit" value="Añadir imagen a la galería">
 	</form>
 	<% if (isImagePosted) { %>

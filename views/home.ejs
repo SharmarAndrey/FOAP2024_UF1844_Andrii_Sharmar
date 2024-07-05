@@ -19,13 +19,14 @@
 					<section class="container-grid">
 						<% images.forEach(image=> { %>
 							<article>
+
+								<img src="<%= image.url %>" alt="<%= image.title %>">
 								<h3>
 									<%= image.title.toUpperCase() %>
 										<span class="tag">
 											<%= image.tag %>
 										</span>
 								</h3>
-								<img src="<%= image.url %>" alt="<%= image.title %>">
 								<p>
 									<%= new Date(image.date).toLocaleDateString() %>
 								</p>
