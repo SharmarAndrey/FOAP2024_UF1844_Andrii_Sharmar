@@ -1,73 +1,53 @@
-// importar módulos de terceros
 const express = require('express');
 const morgan = require('morgan');
 
-// creamos una instancia del servidor Express
+const { getColorFromURL } = require('color-thief-node');
+
 const app = express();
 
-// Tenemos que usar un nuevo middleware para indicar a Express que queremos procesar peticiones de tipo POST
 app.use(express.urlencoded({ extended: true }));
-
-// Añadimos el middleware necesario para que el client puedo hacer peticiones GET a los recursos públicos de la carpeta 'public'
 app.use(express.static('public'));
-
-// Base de datos de imágenes
-const images = [];
-
-// Especificar a Express que quiero usar EJS como motor de plantillas
-app.set('view engine', 'ejs');
-
-// Usamos el middleware morgan para loguear las peticiones del cliente
 app.use(morgan('tiny'));
 
-// Cuando nos hagan una petición GET a '/' renderizamos la home.ejs
+const images = [];
+
+app.set('view engine', 'ejs');
+
 app.get('/', (req, res) => {
-
-    // 2. Usar en el home.ejs el forEach para iterar por todas las imágenes de la variable 'images'. Mostrar de momento solo el título 
-    res.render('home', {
-        images
-    });
+	images.sort((a, b) => new Date(b.date) - new Date(a.date));
+	res.render('home', { images });
 });
 
-// Cuando nos hagan una petición GET a '/add-image-form' renderizamos 
 app.get('/add-image-form', (req, res) => {
-    res.render('form', {
-        isImagePosted: undefined
-    });
+	res.render('form', { isImagePosted: undefined, errorMessage: null });
 });
 
-// Cuando nos hagan una petición POST a '/add-image-form' tenemos que recibir los datos del formulario y actualizar nuestra "base de datos"
-app.post('/add-image-form', (req, res) => {
-    // todos los datos vienen en req.body
-    console.log(req.body);
+app.post('/add-image-form', async (req, res) => {
+	const { title, url, date } = req.body;
 
-    // 1. Actualizar el array 'images' con la información de req.body
-    const { title } = req.body;
+	const titleRegex = /^[A-Za-z0-9_]{1,30}$/;
+	const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg))$/;
 
-    // opción 1: totalmente válida
-    //images.push(req.body); // [{title: 'Gato'}]
+	if (!titleRegex.test(title)) {
+		return res.render('form', { isImagePosted: false, errorMessage: 'Invalid title. Only letters, numbers, and underscore are allowed, and up to 30 characters.' });
+	}
+	if (!urlRegex.test(url)) {
+		return res.render('form', { isImagePosted: false, errorMessage: 'Invalid URL. Must be a valid image URL (png, jpg, jpeg).' });
+	}
 
-    // otra opción, 'sacar' los campos
-    images.push({
-        title
-    })
+	const existingImage = images.find(image => image.url === url);
+	if (existingImage) {
+		return res.render('form', { isImagePosted: false, errorMessage: 'This URL already exists in the database.' });
+	}
 
-    console.log('array de imagenes actualizado: ', images);
+	const dominantColor = await getColorFromURL(url);
+	const colorRGB = `RGB(${dominantColor.join(', ')})`;
 
-    // 3. Añadir los otros campos del formulario y sus validaciones
+	images.push({ title, url, date, color: colorRGB });
 
-    // 4julio: Tras insertar una imagen 'dejaremos' el formulario visible 
-    //res.send('Datos recibidos');
-    // Redirect es un método del objecto Response que permite 'redirigir' al cliente a un nuevo endpoint o vista
-    res.render('form', {
-        isImagePosted: true
-    });
+	res.render('form', { isImagePosted: true, errorMessage: null });
 });
 
-
-// en el futuro es normal que tengamos endpoints como
-// app.get('/edit-image-form')
-
-app.listen(3000, (req, res) => {
-    console.log("Servidor escuchando correctamente en el puerto 3000.")
+app.listen(3000, () => {
+	console.log("Servidor escuchando correctamente en el puerto 3000.");
 });

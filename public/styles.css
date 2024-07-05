@@ -1,12 +1,148 @@
+body,
+html {
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	width: 100%;
+}
+body {
+	background-image: url("pngtree-rainbow-curves-abstract-colorful-background-image_2164067.jpg");
+	background-size: cover; /* Ensure the background covers the entire viewport */
+	background-repeat: no-repeat; /* Prevent the background from repeating */
+	background-position: center; /* Center the background image */
+}
 .alert {
-    padding: 20px;
-    color: white;
-    opacity: 1;
-    transition: opacity 0.6s;
-    margin-bottom: 15px;
-    cursor: pointer;
+	padding: 20px;
+	color: white;
+	opacity: 1;
+	transition: opacity 0.6s;
+	margin-bottom: 15px;
+	cursor: pointer;
 }
 
+.container {
+	/* width: 100vw; */
+	margin: 0;
+	padding: 0;
+	max-width: 100%;
+}
 .alert.success {
-    background-color: #04AA6D;
+	background-color: #04aa6d;
+}
+
+.alert.error {
+	background-color: #f44336;
+}
+
+nav {
+	background-color: black;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	padding: 10px 0;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+}
+
+nav ul li {
+	display: inline;
+	margin-right: 10px;
+	color: #e076cf;
+}
+
+nav ul li a {
+	text-decoration: none;
+	padding: 10px;
+	color: white;
+}
+
+nav ul li a:hover {
+	background-color: #e076cf;
+}
+
+.container-grid {
+	/* 	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	width: 100%;
+	justify-content: space-evenly;
+}
+
+.container-grid article {
+	padding: 10px;
+	border: 1px solid #ccc;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	min-width: 200px;
+	/* flex: 1 1 200px; */
+	/* min-width: max-content; */
+}
+
+.container-grid article img {
+	height: 350px;
+	width: auto;
+	max-width: 100%;
+	object-fit: contain;
+}
+.circle {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+main > p {
+	color: white;
+	font-size: 2rem;
+}
+main p a {
+	color: rgb(235, 233, 207);
+
+	text-decoration-color: rgb(235, 233, 207);
+}
+main p a:hover {
+	color: rgb(235, 238, 4);
+	text-decoration-color: rgb(255, 238, 4);
+}
+header {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+	background-color: black;
+}
+header .container {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	max-width: 100%;
+}
+.form {
+	max-width: 70%;
+	margin: 100px auto;
+	color: #05fa11;
+}
+.form div {
+	font-size: 2rem;
+}
+.form label {
+	color: #ffee00;
+}
+#message {
+	margin: 0 auto;
+	max-width: 70%;
+	padding: 1rem;
+	text-align: center;
 }

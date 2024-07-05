@@ -2,30 +2,41 @@
 <html lang="en">
 
 <head>
-    <title>Fototeca IronHack 2024</title>
-    <%- include('./partials/head') %>
+	<title>Photo Library 2024</title>
+	<%- include('./partials/head') %>
 </head>
 
 <body>
-    <header class="container">
-        <%- include('./partials/nav') %>
-    </header>
-    <main class="container">
-        <!-- Si no hay imágenes en la fototeca animamos al usuario a añadir de nuevas. En caso contrario mostraremos el número de imágenes que contiene la fototeca -->
-        <% if (images.length==0) { %>
-            <p>Todavía no hay imágenes en la fototeca. <a href="/add-image-form">Añade una ahora.</a></p>
-            <% } else { %>
-                <p>La fototeca tiene actualmente <%= images.length %> imágenes.</p>
-                <% } %>
+	<header class="container">
+		<%- include('./partials/nav') %>
+	</header>
+	<main class="main">
+		<% if (images.length==0) { %>
+			<p>There are still no images in the photo library. <a href=" /add-image-form">Add one now.</a></p>
+			<% } else { %>
+				<p>The photo library currently has <%= images.length %> images.</p>
+				<% } %>
+					<section class="container-grid">
+						<% images.forEach(image=> { %>
+							<article>
+								<h3>
+									<%= image.title.toUpperCase() %>
+								</h3>
+								<img src="<%= image.url %>" alt="<%= image.title %>">
+								<p>
+									<%= new Date(image.date).toLocaleDateString() %>
+								</p>
+								<p>
+									<%= image.color %>
+								</p>
 
-                    <section class="grid">
-                        <% for (const image of images) { %>
-                            <article>
-                                <%= image.title %>
-                            </article>
-                            <% } %>
-                    </section>
-    </main>
+								<div class="circle" style="background-color: <%= image.color %>;"></div>
+
+							</article>
+
+							<% }) %>
+					</section>
+	</main>
 </body>
 
 </html>

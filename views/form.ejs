@@ -2,27 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>Add New Image</title>
-    <script defer src="form.js"></script>
-
-    <%- include('./partials/head') %>
-
+	<title>Add New Image</title>
+	<script defer src="/form.js"></script>
+	<%- include('./partials/head') %>
 </head>
 
 <body>
-    <header class="container">
-        <%- include('./partials/nav') %>
-    </header>
-    <form class="container" action="/add-image-form" method="post">
-        <label for="title">Nombre</label>
-        <input type="text" name="title" id="title" required>
-        <input type="submit" value="Añadir">
-    </form>
-    <!-- Mostrar un mensaje de confirmación si el usuario acaba de isertar una imagen en la 'base de datos'-->
-    <% if (isImagePosted) { %>
-        <div id="message" class="container alert success">Imagen insertada correctamente</div>
-        <% } %>
-
+	<header class="container">
+		<%- include('./partials/nav') %>
+	</header>
+	<form class="container form" action="/add-image-form" method="post">
+		<div>Add New Image</div>
+		<label for="title">Name</label>
+		<input type="text" name="title" id="title" maxlength="30" pattern="^[A-Za-z0-9_]{1,30}$" required>
+		<label for="url">URL</label>
+		<input type="url" name="url" id="url" required>
+		<label for="date">Date</label>
+		<input type="date" name="date" id="date" required>
+		<!-- <label for="tag">Etiqueta</label>
+		<input type="text" name="tag" id="tag" maxlength="30" pattern="^[A-Za-z0-9_]{1,30}$" required> -->
+		<input type="submit" value="Añadir image a  galería">
+	</form>
+	<% if (isImagePosted) { %>
+		<div id="message" class="container alert success">Image inserted correctly</div>
+		<% } else if (errorMessage) { %>
+			<div id="message" class="container alert error">
+				<%= errorMessage %>
+			</div>
+			<% } %>
 </body>
 
 </html>
