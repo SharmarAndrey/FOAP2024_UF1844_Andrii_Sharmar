@@ -3,7 +3,16 @@
 
 <head>
 	<title>Add New Image</title>
-	<script defer src="/form.js"></script>
+	<script defer>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.addEventListener('input', () => {
+				const title = document.getElementById('title').value;
+				const tag = document.getElementById('tag').value;
+				const combined = `${title}_${tag}`;
+				document.getElementById('combined').value = combined;
+			});
+		});
+	</script>
 	<%- include('./partials/head') %>
 </head>
 
@@ -19,9 +28,10 @@
 		<input type="url" name="url" id="url" required>
 		<label for="date">Date</label>
 		<input type="date" name="date" id="date" required>
-		<!-- <label for="tag">Etiqueta</label>
-		<input type="text" name="tag" id="tag" maxlength="30" pattern="^[A-Za-z0-9_]{1,30}$" required> -->
-		<input type="submit" value="Añadir image a  galería">
+		<label for="tag">Label</label>
+		<input type="text" name="tag" id="tag" maxlength="30" pattern="^[A-Za-z0-9_]{1,30}$" required>
+		<input type="hidden" name="combined" id="combined">
+		<input type="submit" value="Añadir imagen a la galería">
 	</form>
 	<% if (isImagePosted) { %>
 		<div id="message" class="container alert success">Image inserted correctly</div>

@@ -23,10 +23,11 @@ app.get('/add-image-form', (req, res) => {
 });
 
 app.post('/add-image-form', async (req, res) => {
-	const { title, url, date } = req.body;
+	const { title, url, date, tag } = req.body;
 
 	const titleRegex = /^[A-Za-z0-9_]{1,30}$/;
 	const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg))$/;
+	const tagRegex = /^[A-Za-z0-9_]{1,30}$/;
 
 	if (!titleRegex.test(title)) {
 		return res.render('form', { isImagePosted: false, errorMessage: 'Invalid title. Only letters, numbers, and underscore are allowed, and up to 30 characters.' });
@@ -34,7 +35,9 @@ app.post('/add-image-form', async (req, res) => {
 	if (!urlRegex.test(url)) {
 		return res.render('form', { isImagePosted: false, errorMessage: 'Invalid URL. Must be a valid image URL (png, jpg, jpeg).' });
 	}
-
+	if (!tagRegex.test(tag)) {
+		return res.render('form', { isImagePosted: false, errorMessage: 'Invalid label. Only letters, numbers, and underscore are allowed, and up to 30 characters.' });
+	}
 	const existingImage = images.find(image => image.url === url);
 	if (existingImage) {
 		return res.render('form', { isImagePosted: false, errorMessage: 'This URL already exists in the database.' });
@@ -43,7 +46,7 @@ app.post('/add-image-form', async (req, res) => {
 	const dominantColor = await getColorFromURL(url);
 	const colorRGB = `RGB(${dominantColor.join(', ')})`;
 
-	images.push({ title, url, date, color: colorRGB });
+	images.push({ title, url, date, color: colorRGB, tag });
 
 	res.render('form', { isImagePosted: true, errorMessage: null });
 });

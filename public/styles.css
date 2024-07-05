@@ -146,3 +146,11 @@ header .container {
 	padding: 1rem;
 	text-align: center;
 }
+.tag {
+	display: inline-block;
+	background-color: #a52a2a;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin-left: 10px;
+}

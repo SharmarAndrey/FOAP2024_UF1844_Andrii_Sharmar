@@ -12,7 +12,7 @@
 	</header>
 	<main class="main">
 		<% if (images.length==0) { %>
-			<p>There are still no images in the photo library. <a href=" /add-image-form">Add one now.</a></p>
+			<p>There are still no images in the photo library. <a href="/add-image-form">Add one now.</a></p>
 			<% } else { %>
 				<p>The photo library currently has <%= images.length %> images.</p>
 				<% } %>
@@ -21,6 +21,9 @@
 							<article>
 								<h3>
 									<%= image.title.toUpperCase() %>
+										<span class="tag">
+											<%= image.tag %>
+										</span>
 								</h3>
 								<img src="<%= image.url %>" alt="<%= image.title %>">
 								<p>
@@ -29,11 +32,8 @@
 								<p>
 									<%= image.color %>
 								</p>
-
 								<div class="circle" style="background-color: <%= image.color %>;"></div>
-
 							</article>
-
 							<% }) %>
 					</section>
 	</main>
