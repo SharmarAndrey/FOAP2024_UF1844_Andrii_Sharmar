@@ -82,8 +82,6 @@ nav ul li a:hover {
 	align-items: center;
 	justify-content: space-between;
 	min-width: 200px;
-	/* flex: 1 1 200px; */
-	/* min-width: max-content; */
 }
 
 .container-grid article img {
@@ -91,11 +89,16 @@ nav ul li a:hover {
 	width: auto;
 	max-width: 100%;
 	object-fit: contain;
+	margin: 10px;
 }
 .circle {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
+}
+.delete-image {
+	width: 50%;
+	font-size: 1rem;
 }
 .main {
 	display: flex;
@@ -153,4 +156,16 @@ header .container {
 	padding: 5px 10px;
 	border-radius: 10px;
 	margin-left: 10px;
+}
+
+.delete-image {
+	background-color: chocolate;
+	padding: 5px;
+	margin-top: 1rem;
+	max-width: 60%;
+	position: relative;
+	text-align: center;
+}
+.delete-image:hover {
+	background-color: red;
 }
