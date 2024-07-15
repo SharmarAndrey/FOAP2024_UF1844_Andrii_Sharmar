@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('tiny'));
 
+const PORT = process.env.PORT || 3000;
+
+
 const images = [];
 
 app.set('view engine', 'ejs');
@@ -65,6 +68,8 @@ app.post('/delete-image', (req, res) => {
 });
 
 
-app.listen(3000, () => {
+
+
+app.listen(PORT, () => {
 	console.log("Server is listening on port 3000.");
 });
