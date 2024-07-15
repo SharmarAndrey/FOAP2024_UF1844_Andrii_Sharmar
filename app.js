@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(morgan('tiny'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 
 const images = [];
