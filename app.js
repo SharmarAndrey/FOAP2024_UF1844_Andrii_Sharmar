@@ -51,17 +51,20 @@ app.post('/add-image-form', async (req, res) => {
 	res.render('form', { isImagePosted: true, errorMessage: null });
 });
 
-
-/* app.post('/delete-image', (req, res) => {
+app.post('/delete-image', (req, res) => {
 	const { url } = req.body;
 	const imageIndex = images.findIndex(image => image.url === url);
 	if (imageIndex !== -1) {
 		images.splice(imageIndex, 1);
 		res.redirect('/');
+
 	} else {
 		res.status(404).send('Image not found');
 	}
-}); */
+
+});
+
+
 app.listen(3000, () => {
-	console.log("Servidor escuchando correctamente en el puerto 3000.");
+	console.log("Server is listening on port 3000.");
 });

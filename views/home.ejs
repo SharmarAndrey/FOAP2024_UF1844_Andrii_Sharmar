@@ -19,7 +19,6 @@
 					<section class="container-grid">
 						<% images.forEach(image=> { %>
 							<article>
-
 								<img src="<%= image.url %>" alt="<%= image.title %>">
 								<h3>
 									<%= image.title.toUpperCase() %>
@@ -34,15 +33,22 @@
 									<%= image.color %>
 								</p>
 								<div class="circle" style="background-color: <%= image.color %>;"></div>
-
-								<!-- <input type="hidden" name="url" value="<%= image.url %>"> -->
-								<button class="delete-image " type="submit">Delete image</button>
-
-
+								<form class="deleteForm " action="/delete-image" method="post"
+									onsubmit="confirmDelete(event, '<%= image.title %>')">
+									<input type="hidden" name="url" value="<%= image.url %>">
+									<button class="delete-image" type="submit">Delete image</button>
+								</form>
 							</article>
 							<% }) %>
 					</section>
 	</main>
+	<script>
+		function confirmDelete(event, title) {
+			if (!confirm(`Do you want to delete image "${title}"?`)) {
+				event.preventDefault();
+			}
+		}
+	</script>
 </body>
 
 </html>
