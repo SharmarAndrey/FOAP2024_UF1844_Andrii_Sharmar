@@ -28,6 +28,8 @@ app.get('/add-image-form', (req, res) => {
 app.post('/add-image-form', async (req, res) => {
 	const { title, url, date, tag } = req.body;
 
+	//Regex
+
 	const titleRegex = /^[A-Za-z0-9_]{1,30}$/;
 	const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg))$/;
 	const tagRegex = /^[A-Za-z0-9_]{1,30}$/;
