@@ -35,7 +35,7 @@
 								<div class="circle" style="background-color: <%= image.color %>;"></div>
 								<form class="deleteForm " action="/delete-image" method="post"
 									onsubmit="confirmDelete(event, '<%= image.title %>')">
-									<input type="hidden" name="url" value="<%= image.url %>">
+									<input type="hidden" name="id" value="<%= image._id %>">
 									<button class="delete-image" type="submit">Delete image</button>
 								</form>
 							</article>
