@@ -26,6 +26,7 @@ const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 let images = [];
+
 app.get('/', async (req, res) => {
 	/* 	images.sort((a, b) => new Date(b.date) - new Date(a.date)); */
 	images = await database.collection('images').find({}).sort({ date: -1 }).toArray();
@@ -36,13 +37,27 @@ app.get('/add-image-form', (req, res) => {
 	res.render('form', { isImagePosted: undefined, errorMessage: null });
 });
 
+// Endpoint para buscar imágenes por palabra clave en el título
+app.get('search', async (req, res) => {
+	//obtenemos parabla clave desde parametro de consulta "keyword"
+	const keyword = req.query.keyword;
+	//Cramos un Regex para buscar en mayusculas y menusculas
+	const searchRegex = new RegExp(keyword, "i");
+	const searchResults = await database.collection('images').find({ title: { $regex: searchRegex } }) //busamos imagenes donde el titulo va como parabla clave
+		.sort({ date: -1 }) //Ordenamo el resultato por fecha
+		.toArray();
+	res.render('home', { images: searchResults })//Renderizamos la vista "home" con los resultados
+});
+
+
 app.post('/add-image-form', async (req, res) => {
 	const { title, url, date, tag } = req.body;
 
 	//Regex
 
 	const titleRegex = /^[A-Za-z0-9_]{1,30}$/;
-	const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg))$/;
+	/* const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg))$/; */
+	const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg)\/?)$/;
 	const tagRegex = /^[A-Za-z0-9_]{1,30}$/;
 
 	if (!titleRegex.test(title)) {
@@ -61,6 +76,7 @@ app.post('/add-image-form', async (req, res) => {
 
 	const dominantColor = await getColorFromURL(url);
 	const colorRGB = `RGB(${dominantColor.join(', ')})`;
+
 
 	/* images.push({ title, url, date, color: colorRGB, tag }); */
 

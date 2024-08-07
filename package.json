@@ -12,11 +12,15 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"axios": "^1.7.3",
 		"body-parser": "^1.20.2",
 		"color-thief-node": "^1.0.4",
 		"ejs": "^3.1.10",
 		"express": "^4.19.2",
+		"image-type": "^5.2.0",
+		"jimp": "^0.22.12",
 		"mongodb": "^6.8.0",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"sharp": "^0.33.4"
 	}
 }

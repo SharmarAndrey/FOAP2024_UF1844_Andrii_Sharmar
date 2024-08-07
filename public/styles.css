@@ -171,3 +171,22 @@ h3 {
 .confirmDelete {
 	background-color: #a52a2a;
 }
+
+nav form {
+	display: flex;
+	align-items: center;
+}
+
+nav input[type="text"] {
+	padding: 5px;
+	margin-right: 10px;
+	/*  width: 200px;   */
+}
+
+nav button {
+	padding: 5px 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
